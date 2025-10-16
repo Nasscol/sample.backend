@@ -18,23 +18,39 @@ model User {
   first_name  String
   second_name  String
   email String @unique
+  role String?
   issue Issue[]
+  source Comment[]
   phoneNumber String @unique
   isActive  Boolean @default(true)
   createdAt DateTime @default(now())
   updatedAt DateTime  @updatedAt
 }
+model Status {
+  id    String    @id @default(uuid())
+  progress Issue[]
+  createdAt DateTime @default(now())
+  text  String  
+}
+model Comment {
+  id       String    @id @default(uuid())
+  remarks Issue[]
+  sourceId String?
+  source User? @relation (fields: [sourceId], references: [id], onDelete: SetNull)
+  text      String
+  createdAt DateTime @default(now())
+}
 model Issue {
   id         String    @id @default(uuid())
   title       String
   description String
-  userId String
-  user User @relation(fields: [userId], references: [id])
-  status      String   @default("open")
+  progressId String?
+  remarksId String?
+  userId String?
+  remarks Comment? @relation(fields: [remarksId], references: [id])
+  progress Status? @relation(fields: [progressId], references: [id])
+  user User? @relation(fields: [userId], references: [id], onDelete: SetNull)  
   createdAt   DateTime @default(now())
 }
-model Comment {
-  id       String    @id @default(uuid())
-  text      String
-  createdAt DateTime @default(now())
-}
+
+
