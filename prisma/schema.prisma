@@ -18,7 +18,7 @@ model User {
   first_name  String
   second_name  String
   email String @unique
-  role String?
+  role String
   issue Issue[]
   source Comment[]
   phoneNumber String @unique

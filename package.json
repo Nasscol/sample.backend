@@ -30,5 +30,9 @@
   "dependencies": {
     "@prisma/client": "^6.16.2",
     "express": "^4.19.2"
-  }
+  },
+  "scripts": {
+  "prisma:seed": "ts-node prisma/seed.ts"
+}
+
 }
